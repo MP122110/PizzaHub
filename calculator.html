@@ -18,20 +18,36 @@
 </header>
 
 <main>
-    <section>
-        <h2>Pizza Calculator</h2>
+<section class="pizza-calculator">
 
-            <label>Aantal pizza's</label>
-            <input type="number" id="aantal" min="1">
+    <h2>Pizza Calculator</h2>
 
-            <label>Diameter pizza (cm)</label>
-            <input type="number" id="diameter" min="1">
+    <div class="calc-form">
 
-            <button onclick="bereken()">Bereken</button>
+        <label for="aantal">Aantal pizza's</label>
+        <input type="number" id="aantal" min="1" placeholder="bv. 2">
 
-            <div id="resultaten" class="resultaten"></div>
+        <label for="diameter">Diameter pizza (cm)</label>
+        <input type="number" id="diameter" min="1" placeholder="bv. 30">
 
-    </section>
+        <button onclick="berekenPizza()">Bereken pizza</button>
+
+    </div>
+
+    <div id="resultaten" class="pizza-resultaten"></div>
+
+    <div id="ingredienten" class="pizza-ingredienten">
+        <h3>Ingrediënten voor je pizza</h3>
+        <ul>
+            <li>🍅 Tomatensaus</li>
+            <li>🧀 Mozzarella</li>
+            <li>🌿 Oregano</li>
+            <li>🫒 Olijfolie</li>
+            <li>🍕 Pizzadeeg</li>
+        </ul>
+    </div>
+
+</section>
 </main>
 
 <div id="footer"></div>

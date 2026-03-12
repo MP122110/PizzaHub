@@ -166,3 +166,40 @@ footer {
     margin-top: 40px;
     box-shadow: var(--shadow);
 }
+
+.pizza-calculator .calc-form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.pizza-calculator input{
+    width:100%;
+    box-sizing:border-box;
+}
+
+.pizza-calculator label{
+    margin-top:10px;
+}
+
+.pizza-calculator{
+    max-width:500px;
+    margin:auto;
+    padding:10px;
+}
+
+.pizza-resultaten{
+    margin-top:20px;
+    padding:20px;
+    background:#fff3e6;
+    border-radius:10px;
+    border-left:5px solid var(--primary);
+}
+
+.pizza-ingredienten{
+    margin-top:20px;
+    padding:20px;
+    background:#f9f9f9;
+    border-radius:10px;
+    display:none;
+}
