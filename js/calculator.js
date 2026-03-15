@@ -1,102 +1,105 @@
-// Toon juiste velden op basis van vorm
+// Toon juiste velden op basis van gekozen vorm
 document.getElementById("vorm").addEventListener("change", function () {
-    const vorm = this.value;
+    const gekozenVorm = this.value;
 
     // Alle vormvelden verbergen
     document.querySelectorAll(".vorm-veld").forEach(v => v.style.display = "none");
 
-    if (vorm === "rond") {
+    if (gekozenVorm === "rond") {
         document.getElementById("veld-rond").style.display = "block";
     }
-    if (vorm === "rechthoek") {
+    if (gekozenVorm === "rechthoek") {
         document.getElementById("veld-rechthoek").style.display = "block";
     }
-    if (vorm === "driehoek") {
+    if (gekozenVorm === "driehoek") {
         document.getElementById("veld-driehoek").style.display = "block";
     }
 });
 
-function fout(tekst) {
+// Toon foutmelding
+function toonFoutmelding(tekst) {
     const foutvak = document.getElementById("foutmelding");
     foutvak.innerText = tekst;
     foutvak.style.display = "block";
 
-    // Shake opnieuw starten
+    // Shake-animatie opnieuw starten
     foutvak.classList.remove("shake");
-    void foutvak.offsetWidth; // force reflow
+    void foutvak.offsetWidth; 
     foutvak.classList.add("shake");
 }
 
-function verbergFout() {
+// Verberg foutmelding
+function verbergFoutmelding() {
     document.getElementById("foutmelding").style.display = "none";
 }
 
+// Bereken ingrediënten op basis van vorm en aantal
 function berekenPizza() {
 
-    verbergFout();
+    verbergFoutmelding();
 
-    const aantal = parseFloat(document.getElementById("aantal").value);
+    const aantalPizza = parseFloat(document.getElementById("aantal").value);
     const vorm = document.getElementById("vorm").value;
 
-    if (!aantal) {
-        fout("Vul het aantal pizza's in.");
+    if (!aantalPizza) {
+        toonFoutmelding("Vul het aantal pizza's in.");
         return;
     }
 
     if (!vorm) {
-        fout("Kies een vorm.");
+        toonFoutmelding("Kies een vorm.");
         return;
     }
 
-    let opp = 0;
+    let oppervlakte = 0;
 
-    // ROND
+    // Ronde pizza
     if (vorm === "rond") {
         const diameter = parseFloat(document.getElementById("diameter").value);
         if (!diameter) {
-            fout("Vul de diameter in.");
+            toonFoutmelding("Vul de diameter in.");
             return;
         }
         const straal = diameter / 2;
-        opp = Math.PI * (straal * straal);
+        oppervlakte = Math.PI * (straal * straal);
     }
 
-    // RECHTHOEK
+    // Rechthoekige pizza
     if (vorm === "rechthoek") {
         const lengte = parseFloat(document.getElementById("lengte").value);
         const breedte = parseFloat(document.getElementById("breedte").value);
         if (!lengte || !breedte) {
-            fout("Vul lengte en breedte in.");
+            toonFoutmelding("Vul lengte en breedte in.");
             return;
         }
-        opp = lengte * breedte;
+        oppervlakte = lengte * breedte;
     }
 
-    // DRIEHOEK
+    // Driehoekige pizza
     if (vorm === "driehoek") {
         const basis = parseFloat(document.getElementById("basis").value);
         const hoogte = parseFloat(document.getElementById("hoogte").value);
         if (!basis || !hoogte) {
-            fout("Vul basis en hoogte in.");
+            toonFoutmelding("Vul basis en hoogte in.");
             return;
         }
-        opp = (basis * hoogte) / 2;
+        oppervlakte = (basis * hoogte) / 2;
     }
 
-    // --- INGREDIËNTEN (C# formules 1-op-1) ---
-    const factor = opp / 1017.88;
+    // Ingrediëntenfactor
+    const factor = oppervlakte / 1017.88;
 
-    const bloem = Math.ceil(factor * 313 * aantal);
-    const gist = Math.ceil(factor * 16 * aantal);
-    const water = Math.floor(factor * 172.15 * aantal);
-    const zout = Math.ceil(factor * 8 * aantal);
-    const suiker = Math.ceil(factor * 8 * aantal);
-    const vetstof = Math.ceil(factor * 31 * aantal);
-    const saus = Math.ceil(factor * 250 * aantal);
-    const mozzarella = Math.ceil(factor * 200 * aantal);
-    const parmezaan = Math.ceil(factor * 50 * aantal);
+    const bloem = Math.ceil(factor * 313 * aantalPizza);
+    const gist = Math.ceil(factor * 16 * aantalPizza);
+    const water = Math.floor(factor * 172.15 * aantalPizza);
+    const zout = Math.ceil(factor * 8 * aantalPizza);
+    const suiker = Math.ceil(factor * 8 * aantalPizza);
+    const vetstof = Math.ceil(factor * 31 * aantalPizza);
+    const saus = Math.ceil(factor * 250 * aantalPizza);
+    const mozzarella = Math.ceil(factor * 200 * aantalPizza);
+    const parmezaan = Math.ceil(factor * 50 * aantalPizza);
 
-    // --- INGREDIËNTEN TONEN ---
+    // Ingrediënten tonen
     document.querySelector("#ingredienten ul").innerHTML = `
         <li>🌾 Bloem: ${bloem} g</li>
         <li>🍞 Gist: ${gist} g</li>
@@ -111,51 +114,77 @@ function berekenPizza() {
 
     document.getElementById("ingredienten").style.display = "block";
 
-    // wis knop zichtbaar maken
+    // Wis-knop tonen
     document.querySelector(".btn-wis").style.display = "inline-block";
 }
 
+// Velden wissen
 document.getElementById("clearBtn").addEventListener("click", function () {
 
-    // Algemene velden leegmaken
     document.getElementById("aantal").value = "";
     document.getElementById("vorm").value = "";
 
-    // Vorm-specifieke velden leegmaken
     document.getElementById("diameter").value = "";
     document.getElementById("lengte").value = "";
     document.getElementById("breedte").value = "";
     document.getElementById("basis").value = "";
     document.getElementById("hoogte").value = "";
 
-    // Vormvelden verbergen
     document.querySelectorAll(".vorm-veld").forEach(v => v.style.display = "none");
 
-    // Foutmelding verbergen
     document.getElementById("foutmelding").style.display = "none";
-
-    // Ingrediënten verbergen
     document.getElementById("ingredienten").style.display = "none";
-
-    // Ingrediëntenlijst leegmaken
     document.querySelector("#ingredienten ul").innerHTML = "";
 
-    // WIS KNOP OPNIEUW VERBERGEN
     document.getElementById("clearBtn").style.display = "none";
-
 });
-// Selecteer alle nummer-velden
+
+// Blokkeer ongewenste tekens in nummer-velden
 document.querySelectorAll('input[type="number"]').forEach(input => {
-
-    const id = input.id;
-
-    // Keydown event voor alles
     input.addEventListener('keydown', function(e) {
-
-        // Blokkeer ongewenste tekens: '-' en 'e'
         if (e.key === '-' || e.key === 'e') {
             e.preventDefault();
-            return;
+        }
+    });
+});
+
+// Spinner-gedrag: eerste keer exact placeholder-waarde
+document.querySelectorAll('input[type="number"]').forEach(input => {
+
+    function numeriekePlaceholder() {
+        const ph = input.placeholder || "";
+        const match = ph.match(/\d+/);
+        return match ? parseInt(match[0], 10) : 1;
+    }
+
+    function zetPlaceholderEersteKeer() {
+        if (!input.dataset.placeholderGebruikt || input.dataset.placeholderGebruikt === "false") {
+            input.value = numeriekePlaceholder();
+            input.dataset.placeholderGebruikt = "true";
+            return true;
+        }
+        return false;
+    }
+
+    input.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+            const eerste = zetPlaceholderEersteKeer();
+            if (eerste) e.preventDefault();
+        }
+    });
+
+    input.addEventListener("mousedown", function () {
+        setTimeout(() => zetPlaceholderEersteKeer(), 0);
+    });
+
+    input.addEventListener("wheel", function (e) {
+        const eerste = zetPlaceholderEersteKeer();
+        if (eerste) e.preventDefault();
+    });
+
+    input.addEventListener("input", function () {
+        if (input.value === "") {
+            input.dataset.placeholderGebruikt = "false";
         }
     });
 });
