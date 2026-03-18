@@ -35,14 +35,20 @@ function verbergFoutmelding() {
 
 // Bereken ingrediënten op basis van vorm en aantal
 function berekenPizza() {
-
     verbergFoutmelding();
 
+    const maxWaarde = 999;
+
+    // Basiswaarden
     const aantalPizza = parseFloat(document.getElementById("aantal").value);
     const vorm = document.getElementById("vorm").value;
 
     if (!aantalPizza) {
         toonFoutmelding("Vul het aantal pizza's in.");
+        return;
+    }
+    if (aantalPizza > maxWaarde) {
+        toonFoutmelding("Aantal pizza's mag maximaal 999 zijn.");
         return;
     }
 
@@ -51,70 +57,88 @@ function berekenPizza() {
         return;
     }
 
-    let oppervlakte = 0;
+    // Controleer alleen relevante velden per vorm
+    let relevanteVelden = [];
 
-    // Ronde pizza
     if (vorm === "rond") {
-        const diameter = parseFloat(document.getElementById("diameter").value);
-        if (!diameter) {
-            toonFoutmelding("Vul de diameter in.");
-            return;
-        }
-        const straal = diameter / 2;
-        oppervlakte = Math.PI * (straal * straal);
+        relevanteVelden.push({id: "diameter", naam: "Diameter"});
+    } else if (vorm === "rechthoek") {
+        relevanteVelden.push({id: "lengte", naam: "Lengte"});
+        relevanteVelden.push({id: "breedte", naam: "Breedte"});
+    } else if (vorm === "driehoek") {
+        relevanteVelden.push({id: "basis", naam: "Basis"});
+        relevanteVelden.push({id: "hoogte", naam: "Hoogte"});
     }
 
-    // Rechthoekige pizza
-    if (vorm === "rechthoek") {
+    // Check limieten
+    for (let veld of relevanteVelden) {
+        const elem = document.getElementById(veld.id);
+        const waarde = parseFloat(elem.value);
+        if (!waarde) {
+            toonFoutmelding(`Vul ${veld.naam} in.`);
+            return;
+        }
+        if (waarde < 1) {
+            toonFoutmelding(`${veld.naam} moet minimaal 1 zijn.`);
+            return;
+        }
+        if (waarde > maxWaarde) {
+            toonFoutmelding(`${veld.naam} mag maximaal ${maxWaarde} zijn.`);
+            return;
+        }
+    }
+
+    // Bereken oppervlakte
+    let oppervlakte = 0;
+    if (vorm === "rond") {
+        const straal = parseFloat(document.getElementById("diameter").value) / 2;
+        oppervlakte = Math.PI * straal * straal;
+    } else if (vorm === "rechthoek") {
         const lengte = parseFloat(document.getElementById("lengte").value);
         const breedte = parseFloat(document.getElementById("breedte").value);
-        if (!lengte || !breedte) {
-            toonFoutmelding("Vul lengte en breedte in.");
-            return;
-        }
         oppervlakte = lengte * breedte;
-    }
-
-    // Driehoekige pizza
-    if (vorm === "driehoek") {
+    } else if (vorm === "driehoek") {
         const basis = parseFloat(document.getElementById("basis").value);
         const hoogte = parseFloat(document.getElementById("hoogte").value);
-        if (!basis || !hoogte) {
-            toonFoutmelding("Vul basis en hoogte in.");
-            return;
-        }
         oppervlakte = (basis * hoogte) / 2;
     }
 
     // Ingrediëntenfactor
     const factor = oppervlakte / 1017.88;
 
-    const bloem = Math.ceil(factor * 313 * aantalPizza);
-    const gist = Math.ceil(factor * 16 * aantalPizza);
-    const water = Math.floor(factor * 172.15 * aantalPizza);
-    const zout = Math.ceil(factor * 8 * aantalPizza);
-    const suiker = Math.ceil(factor * 8 * aantalPizza);
-    const vetstof = Math.ceil(factor * 31 * aantalPizza);
-    const saus = Math.ceil(factor * 250 * aantalPizza);
-    const mozzarella = Math.ceil(factor * 200 * aantalPizza);
-    const parmezaan = Math.ceil(factor * 50 * aantalPizza);
+    let bloem = factor * 313 * aantalPizza;
+    let gist = factor * 16 * aantalPizza;
+    let water = factor * 172.15 * aantalPizza;
+    let zout = factor * 8 * aantalPizza;
+    let suiker = factor * 8 * aantalPizza;
+    let vetstof = factor * 31 * aantalPizza;
+    let saus = factor * 250 * aantalPizza;
+    let mozzarella = factor * 200 * aantalPizza;
+    let parmezaan = factor * 50 * aantalPizza;
+
+    // Automatisch omrekenen naar kg/l als > 1000
+    function formatKgMl(waarde) {
+        if (waarde >= 1000) {
+            return (waarde / 1000).toFixed(2) + (["Water", "Saus"].includes(this) ? " l" : " kg");
+        } else {
+            return Math.ceil(waarde) + (["Water", "Saus"].includes(this) ? " ml" : " g");
+        }
+    }
 
     // Ingrediënten tonen
     document.querySelector("#ingredienten ul").innerHTML = `
-        <li>🌾 Bloem: ${bloem} g</li>
-        <li>🍞 Gist: ${gist} g</li>
-        <li>💧 Water: ${water} ml</li>
-        <li>🧂 Zout: ${zout} g</li>
-        <li>🍬 Suiker: ${suiker} g</li>
-        <li>🧈 Vetstof: ${vetstof} g</li>
-        <li>🍅 Saus: ${saus} ml</li>
-        <li>🧀 Mozzarella: ${mozzarella} g</li>
-        <li>🧀 Parmezaan: ${parmezaan} g</li>
+        <li>🌾 Bloem: ${bloem >= 1000 ? (bloem/1000).toFixed(2)+" kg" : Math.ceil(bloem)+" g"}</li>
+        <li>🍞 Gist: ${Math.ceil(gist)} g</li>
+        <li>💧 Water: ${water >= 1000 ? (water/1000).toFixed(2)+" l" : Math.ceil(water)+" ml"}</li>
+        <li>🧂 Zout: ${Math.ceil(zout)} g</li>
+        <li>🍬 Suiker: ${Math.ceil(suiker)} g</li>
+        <li>🧈 Vetstof: ${Math.ceil(vetstof)} g</li>
+        <li>🍅 Saus: ${saus >= 1000 ? (saus/1000).toFixed(2)+" l" : Math.ceil(saus)+" ml"}</li>
+        <li>🧀 Mozzarella: ${Math.ceil(mozzarella)} g</li>
+        <li>🧀 Parmezaan: ${Math.ceil(parmezaan)} g</li>
     `;
 
     document.getElementById("ingredienten").style.display = "block";
-
-    // Wis-knop tonen
     document.querySelector(".btn-wis").style.display = "inline-block";
 }
 
@@ -161,10 +185,17 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
         if (!input.dataset.placeholderGebruikt || input.dataset.placeholderGebruikt === "false") {
             input.value = numeriekePlaceholder();
             input.dataset.placeholderGebruikt = "true";
+
+            input.select();  
+            
             return true;
         }
         return false;
     }
+
+        input.addEventListener("focus", function () {
+        zetPlaceholderEersteKeer();
+    });
 
     input.addEventListener("keydown", function (e) {
         if (e.key === "ArrowUp" || e.key === "ArrowDown") {

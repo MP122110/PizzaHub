@@ -25,7 +25,7 @@
     <div class="calc-form">
 
         <label for="aantal">Aantal pizza's</label>
-        <input type="number" id="aantal" min="1" placeholder="bv. 1">
+        <input type="number" id="aantal" min="1" max="999" placeholder="bv. 1">
 
         <label for="vorm">Vorm pizza</label>
         <select id="vorm">
@@ -38,25 +38,25 @@
         <!-- ROND -->
         <div id="veld-rond" class="vorm-veld" style="display:none;">
             <label for="diameter">Diameter (cm)</label>
-            <input type="number" id="diameter" min="1" placeholder="bv. 30">
+            <input type="number" id="diameter" min="1" max="999" placeholder="bv. 30">
         </div>
 
         <!-- RECHTHOEK -->
         <div id="veld-rechthoek" class="vorm-veld" style="display:none;">
             <label for="lengte">Lengte (cm)</label>
-            <input type="number" id="lengte" min="1" placeholder="bv. 30">
+            <input type="number" id="lengte" min="1" max="999" placeholder="bv. 30">
 
             <label for="breedte">Breedte (cm)</label>
-            <input type="number" id="breedte" min="1" placeholder="bv. 20">
+            <input type="number" id="breedte" min="1" max="999" placeholder="bv. 20">
         </div>
 
         <!-- DRIEHOEK -->
         <div id="veld-driehoek" class="vorm-veld" style="display:none;">
             <label for="basis">Basis (cm)</label>
-            <input type="number" id="basis" min="1" placeholder="bv. 25">
+            <input type="number" id="basis" min="1" max="999" placeholder="bv. 25">
 
             <label for="hoogte">Hoogte (cm)</label>
-            <input type="number" id="hoogte" min="1" placeholder="bv. 20">
+            <input type="number" id="hoogte" min="1" max="999" placeholder="bv. 20">
         </div>
 
         <div id="foutmelding" style="display:none; color:red; font-weight:bold; margin-top:10px;"></div>
