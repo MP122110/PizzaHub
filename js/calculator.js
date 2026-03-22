@@ -127,16 +127,21 @@ function berekenPizza() {
 
     // Ingrediënten tonen
     document.querySelector("#ingredienten ul").innerHTML = `
-        <li>🌾 Bloem: ${bloem >= 1000 ? (bloem/1000).toFixed(2)+" kg" : Math.ceil(bloem)+" g"}</li>
-        <li>🍞 Gist: ${Math.ceil(gist)} g</li>
-        <li>💧 Water: ${water >= 1000 ? (water/1000).toFixed(2)+" l" : Math.ceil(water)+" ml"}</li>
-        <li>🧂 Zout: ${Math.ceil(zout)} g</li>
-        <li>🍬 Suiker: ${Math.ceil(suiker)} g</li>
-        <li>🧈 Vetstof: ${Math.ceil(vetstof)} g</li>
-        <li>🍅 Saus: ${saus >= 1000 ? (saus/1000).toFixed(2)+" l" : Math.ceil(saus)+" ml"}</li>
-        <li>🧀 Mozzarella: ${Math.ceil(mozzarella)} g</li>
-        <li>🧀 Parmezaan: ${Math.ceil(parmezaan)} g</li>
-    `;
+
+    <li class="tussentitel">🍞 Ingrediënten voor het deeg:</li>
+    <li>🌾 Bloem: ${bloem >= 1000 ? (bloem/1000).toFixed(2)+" kg" : Math.ceil(bloem)+" g"}</li>
+    <li>🍞 Gist: ${Math.ceil(gist)} g</li>
+    <li>💧 Water: ${water >= 1000 ? (water/1000).toFixed(2)+" l" : Math.ceil(water)+" ml"}</li>
+    <li>🧂 Zout: ${Math.ceil(zout)} g</li>
+    <li>🍬 Suiker: ${Math.ceil(suiker)} g</li>
+    <li>🧈 Vetstof: ${Math.ceil(vetstof)} g</li>
+
+    <li class="tussentitel">🍕 Ingrediënten voor de toppings:</li>
+    <li>🍅 Saus: ${saus >= 1000 ? (saus/1000).toFixed(2)+" l" : Math.ceil(saus)+" ml"}</li>
+    <li>⚪ Mozzarella: ${Math.ceil(mozzarella)} g</li>
+    <li>🧀 Parmezaan: ${Math.ceil(parmezaan)} g</li>
+    <li>✨ Toppings naar keuze</li>
+`;
 
     document.getElementById("ingredienten").style.display = "block";
     document.querySelector(".btn-wis").style.display = "inline-block";
@@ -154,6 +159,11 @@ document.getElementById("clearBtn").addEventListener("click", function () {
     document.getElementById("basis").value = "";
     document.getElementById("hoogte").value = "";
 
+    // Reset placeholder-logica
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.dataset.placeholderGebruikt = "false";
+    });
+
     document.querySelectorAll(".vorm-veld").forEach(v => v.style.display = "none");
 
     document.getElementById("foutmelding").style.display = "none";
@@ -161,6 +171,7 @@ document.getElementById("clearBtn").addEventListener("click", function () {
     document.querySelector("#ingredienten ul").innerHTML = "";
 
     document.getElementById("clearBtn").style.display = "none";
+
 });
 
 // Blokkeer ongewenste tekens in nummer-velden
@@ -193,7 +204,7 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
         return false;
     }
 
-        input.addEventListener("focus", function () {
+    input.addEventListener("focus", function () {
         zetPlaceholderEersteKeer();
     });
 

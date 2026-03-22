@@ -187,7 +187,7 @@ footer {
 }
 
 .pizza-calculator{
-    max-width:500px;
+    max-width:1100px;
     margin:auto;
     padding:10px;
 }
@@ -236,4 +236,49 @@ footer {
 
 .shake {
     animation: shake 0.3s ease;
+}
+
+#foutmelding {
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.calc-layout {
+    display: flex;
+    border-radius: 10px;
+    line-height: 1.8;
+    gap: 30px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    align-items: flex-start;
+}
+
+.recept,
+.pizza-ingredienten {
+    flex: 1;
+    margin-top: 0;  
+    padding-top: 0;
+}
+
+.pizza-ingredienten {
+    max-width: 400px;
+    margin-left: auto;
+}
+
+.recept h3 {
+    margin-left: 10px;
+}
+
+.tussentitel {
+    list-style: none;
+    margin-left: -20px; 
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#ingredienten ul {
+    padding-left: 20px; 
+    margin-left: 10px;
 }
