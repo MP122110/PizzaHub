@@ -282,3 +282,16 @@ footer {
     padding-left: 20px; 
     margin-left: 10px;
 }
+
+.recept ol li::marker{
+    font-weight: bold;
+}
+
+#pizza-afbeelding img{
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}

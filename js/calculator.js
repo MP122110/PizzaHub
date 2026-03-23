@@ -106,22 +106,24 @@ function berekenPizza() {
     // Ingrediëntenfactor
     const factor = oppervlakte / 1017.88;
 
-    let bloem = factor * 313 * aantalPizza;
-    let gist = factor * 16 * aantalPizza;
-    let water = factor * 172.15 * aantalPizza;
-    let zout = factor * 8 * aantalPizza;
-    let suiker = factor * 8 * aantalPizza;
-    let vetstof = factor * 31 * aantalPizza;
-    let saus = factor * 250 * aantalPizza;
-    let mozzarella = factor * 200 * aantalPizza;
-    let parmezaan = factor * 50 * aantalPizza;
+    let gewichtBloem = factor * 313 * aantalPizza;
+    let gewichtGist = factor * 16 * aantalPizza;
+    let gewichtWater = factor * 172.15 * aantalPizza;
+    let gewichtZout = factor * 8 * aantalPizza;
+    let gewichtSuiker = factor * 8 * aantalPizza;
+    let gewichtVetstof = factor * 31 * aantalPizza;
+    let gewichtSaus = factor * 250 * aantalPizza;
+    let gewichtMozzarella = factor * 200 * aantalPizza;
+    let gewichtParmezaan = factor * 50 * aantalPizza;
 
-    // Automatisch omrekenen naar kg/l als > 1000
-    function formatKgMl(waarde) {
-        if (waarde >= 1000) {
-            return (waarde / 1000).toFixed(2) + (["Water", "Saus"].includes(this) ? " l" : " kg");
+    // Automatisch omrekenen naar kg/l als > 999
+    function formatEenheid(waarde, type) {
+        const isVloeibaar = (type === "vloeibaar");
+
+        if (waarde > 999) {
+            return (waarde / 1000).toFixed(2).replace('.', ',') + (isVloeibaar ? " l" : " kg");
         } else {
-            return Math.ceil(waarde) + (["Water", "Saus"].includes(this) ? " ml" : " g");
+            return Math.ceil(waarde) + (isVloeibaar ? " ml" : " g");
         }
     }
 
@@ -129,19 +131,19 @@ function berekenPizza() {
     document.querySelector("#ingredienten ul").innerHTML = `
 
     <li class="tussentitel">🍞 Ingrediënten voor het deeg:</li>
-    <li>🌾 Bloem: ${bloem >= 1000 ? (bloem/1000).toFixed(2)+" kg" : Math.ceil(bloem)+" g"}</li>
-    <li>🍞 Gist: ${Math.ceil(gist)} g</li>
-    <li>💧 Water: ${water >= 1000 ? (water/1000).toFixed(2)+" l" : Math.ceil(water)+" ml"}</li>
-    <li>🧂 Zout: ${Math.ceil(zout)} g</li>
-    <li>🍬 Suiker: ${Math.ceil(suiker)} g</li>
-    <li>🧈 Vetstof: ${Math.ceil(vetstof)} g</li>
+    <li>🌾 Bloem: ${formatEenheid(gewichtBloem, "vast")}</li>
+    <li>🍞 Gist: ${formatEenheid(gewichtGist, "vast")}</li>
+    <li>💧 Water: ${formatEenheid(gewichtWater, "vloeibaar")}</li>
+    <li>🧂 Zout: ${formatEenheid(gewichtZout, "vast")}</li>
+    <li>🍬 Suiker: ${formatEenheid(gewichtSuiker, "vast")}</li>
+    <li>🧈 Vetstof: ${formatEenheid(gewichtVetstof, "vast")}</li>
 
     <li class="tussentitel">🍕 Ingrediënten voor de toppings:</li>
-    <li>🍅 Saus: ${saus >= 1000 ? (saus/1000).toFixed(2)+" l" : Math.ceil(saus)+" ml"}</li>
-    <li>⚪ Mozzarella: ${Math.ceil(mozzarella)} g</li>
-    <li>🧀 Parmezaan: ${Math.ceil(parmezaan)} g</li>
+    <li>🍅 Saus: ${formatEenheid(gewichtSaus, "vloeibaar")}</li>
+    <li>⚪ Mozzarella: ${formatEenheid(gewichtMozzarella, "vast")}</li>
+    <li>🧀 Parmezaan: ${formatEenheid(gewichtParmezaan, "vast")}</li>
     <li>✨ Toppings naar keuze</li>
-`;
+    `;
 
     document.getElementById("ingredienten").style.display = "block";
     document.querySelector(".btn-wis").style.display = "inline-block";
