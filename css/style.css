@@ -38,6 +38,12 @@ header h1 {
     font-weight: 700;
 }
 
+.banner-img{
+    height: 400px;
+    width: 100%;
+
+}
+
 .menu-container {
     display: flex;
     justify-content: space-between;
@@ -165,4 +171,22 @@ footer {
     padding: 15px;
     margin-top: 40px;
     box-shadow: var(--shadow);
+}
+
+/* ------------------------------
+   pictures
+------------------------------ */
+.Pizzafoto {
+    width: 220px;
+    height: 150px;
+    object-fit: cover;            /* voorkomt uitgerekte foto's */
+    margin: 15px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+}
+
+.Pizzafoto:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
 }
