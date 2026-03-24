@@ -138,6 +138,8 @@ function berekenPizza() {
     <li>🍬 Suiker: ${formatEenheid(gewichtSuiker, "vast")}</li>
     <li>🧈 Vetstof: ${formatEenheid(gewichtVetstof, "vast")}</li>
 
+    <li class="tussentitel">🫓 Gewicht per deegbol is ongeveer: </li>
+
     <li class="tussentitel">🍕 Ingrediënten voor de toppings:</li>
     <li>🍅 Saus: ${formatEenheid(gewichtSaus, "vloeibaar")}</li>
     <li>⚪ Mozzarella: ${formatEenheid(gewichtMozzarella, "vast")}</li>
