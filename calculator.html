@@ -17,11 +17,103 @@
     <div id="menu"></div>
 </header>
 
-<main>
-    <section>
-        <h2>Pizza Calculator</h2>
-        <p>Bereken hoeveel pizza’s je nodig hebt voor jouw feestje.</p>
-    </section>
+<main>   
+<section class="pizza-calculator">
+
+    <h2>Pan Pizza Calculator</h2>
+
+    <div class="calc-form">
+
+        <label for="aantal">Aantal pizza's</label>
+        <input type="number" id="aantal" min="1" max="999" placeholder="bv. 1">
+
+        <label for="vorm">Vorm pizza</label>
+        <select id="vorm">
+            <option value="">-- Kies een vorm --</option>
+            <option value="rond">Rond</option>
+            <option value="rechthoek">Rechthoekig</option>
+            <option value="driehoek">Driehoekig</option>
+        </select>
+
+        <!-- ROND -->
+        <div id="veld-rond" class="vorm-veld" style="display:none;">
+            <label for="diameter">Diameter (cm)</label>
+            <input type="number" id="diameter" min="1" max="999" placeholder="bv. 30">
+        </div>
+
+        <!-- RECHTHOEK -->
+        <div id="veld-rechthoek" class="vorm-veld" style="display:none;">
+            <label for="lengte">Lengte (cm)</label>
+            <input type="number" id="lengte" min="1" max="999" placeholder="bv. 30">
+
+            <label for="breedte">Breedte (cm)</label>
+            <input type="number" id="breedte" min="1" max="999" placeholder="bv. 20">
+        </div>
+
+        <!-- DRIEHOEK -->
+        <div id="veld-driehoek" class="vorm-veld" style="display:none;">
+            <label for="basis">Basis (cm)</label>
+            <input type="number" id="basis" min="1" max="999" placeholder="bv. 25">
+
+            <label for="hoogte">Hoogte (cm)</label>
+            <input type="number" id="hoogte" min="1" max="999" placeholder="bv. 20">
+        </div>
+
+        <div id="foutmelding"></div>
+
+        <button onclick="berekenPizza()">Bereken pizza</button>
+
+
+        <button id="clearBtn" type="button" class="btn-primary btn-wis">Wis</button>
+
+    </div>
+
+    <div class="calc-layout">
+
+        <div class="recept">
+
+            <div id="pizza-afbeelding">
+                <img src="img/pizza.JPG" alt="Heerlijke pizza">
+            </div>
+
+            <h3>Zo maak je het:</h3>
+
+            <ol>
+                <li><strong>Deeg maken:</strong> Doe de bloem in een kom en brokkel de gist in een kuiltje. 
+                    Voeg het water toe en begin te kneden. Voeg daarna zout en suiker toe en kneed verder. 
+                    Werk tot slot de maïsolie erdoor en kneed tot een soepel deeg.</li>
+
+                <li><strong>Eerste rust en verdelen:</strong> Leg het deeg op het werkblad onder plastiek en 
+                    laat ±10 minuten rusten. Verdeel het daarna in porties, vouw en bol ze op 
+                    (met de naad naar onder). Laat opnieuw ±10 minuten rusten onder plastiek.</li>
+
+                <li><strong>Vormen en pan voorbereiden:</strong> Druk het deeg plat, verwijder alle lucht en 
+                    rol het uit met een deegrol. Vet een gietijzeren pan in met olijfolie en leg het deeg erin. 
+                    Prik gaatjes in het deeg met een vork, maar blijf van de randen weg.</li>
+
+                <li><strong>Rijzen en beleggen:</strong> Laat het deeg 30 minuten rijzen. 
+                    Beleg de pizza naar wens en laat daarna opnieuw 60 minuten (of langer) rijzen tot het bijna
+                    op de hoogte van de pan is.</li>
+
+                <li><strong>Bakken:</strong> Verwarm de oven voor op 250°C en bak de pizza 
+                    15 à 20 minuten tot ze mooi gaar is.</li>
+            </ol>
+
+            <div class="recept-boodschap">
+                Dit recept is gebaseerd op een oud recept van mijn vader – veel plezier met maken en eten!
+            </div>
+
+        </div>
+
+        <div id="ingredienten" class="pizza-ingredienten">
+            <h3>Ingrediënten voor je pizza:</h3>
+            <ul></ul>
+        </div>
+    
+    </div>
+    
+</section>
+
 </main>
 
 <div id="footer"></div>
@@ -33,3 +125,8 @@
 
 </body>
 </html>
+
+
+<!--
+    -etra tekstvak : pizzarecept uit 2012, extra info
+-->
