@@ -116,6 +116,17 @@ function berekenPizza() {
     let gewichtMozzarella = factor * 200 * aantalPizza;
     let gewichtParmezaan = factor * 50 * aantalPizza;
 
+    // Totaal deeggewicht en gewicht per bolss
+    let totaalDeeggewicht = 
+    gewichtBloem +
+    gewichtGist +
+    gewichtWater +
+    gewichtZout +
+    gewichtSuiker +
+    gewichtVetstof;
+
+    let gewichtPerBol = totaalDeeggewicht / aantalPizza;
+
     // Automatisch omrekenen naar kg/l als > 999
     function formatEenheid(waarde, type) {
         const isVloeibaar = (type === "vloeibaar");
@@ -136,9 +147,12 @@ function berekenPizza() {
     <li>💧 Water: ${formatEenheid(gewichtWater, "vloeibaar")}</li>
     <li>🧂 Zout: ${formatEenheid(gewichtZout, "vast")}</li>
     <li>🍬 Suiker: ${formatEenheid(gewichtSuiker, "vast")}</li>
-    <li>🧈 Vetstof: ${formatEenheid(gewichtVetstof, "vast")}</li>
+    <li>🌽 Maisolie: ${formatEenheid(gewichtVetstof, "vast")}</li>
 
-    <li class="tussentitel">🫓 Gewicht per deegbol is ongeveer: </li>
+    <li class="tussentitel">
+        🫓 Gewicht per deegbol is ongeveer:
+        <span class="gewicht"> ${formatEenheid(gewichtPerBol, "vast")}</span>
+    </li>
 
     <li class="tussentitel">🍕 Ingrediënten voor de toppings:</li>
     <li>🍅 Saus: ${formatEenheid(gewichtSaus, "vloeibaar")}</li>
