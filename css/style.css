@@ -3,7 +3,7 @@
 ------------------------------ */
 
 :root {
-    --primary: #eb3838;
+    --primary: #e60d0d;
     --primary-dark: #a61f1f;
     --bg: #fff8f0;
     --text: #333;
@@ -19,6 +19,9 @@ body {
     font-family: "Inter", Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
+    background-image: url("../img/hout.png");
+    background-repeat: repeat;
+    background-size: auto;
 }
 
 /* ------------------------------
@@ -30,6 +33,7 @@ header {
     color: var(--white);
     padding: 20px;
     box-shadow: var(--shadow);
+    border-radius: 0 0 30px 30px;
 }
 
 header h1 {
@@ -128,6 +132,10 @@ h2 {
     color: var(--primary-dark);
 }
 
+h3{
+    color: var(--primary-dark);
+}
+
 /* ------------------------------
    BUTTONS
 ------------------------------ */
@@ -171,6 +179,167 @@ footer {
     padding: 15px;
     margin-top: 40px;
     box-shadow: var(--shadow);
+    border-radius: 30px 30px 0 0;
+}
+
+/* ------------------------------
+   CALCULATOR
+------------------------------ */
+
+.pizza-calculator {
+    max-width: 1100px;
+    margin: auto;
+    padding: 10px;
+}
+
+.pizza-calculator .calc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pizza-calculator input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pizza-calculator label {
+    margin-top: 10px;
+}
+
+.pizza-ingredienten {
+    flex: 1;
+    margin-top: 0;
+    padding: 0;
+    max-width: 400px;
+    margin-left: auto;
+    background: var(--white);
+    border-radius: 10px;
+    display: none;
+}
+
+.calc-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    line-height: 1.8;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.recept {
+    flex: 1;
+    margin-top: 0;
+    padding-top: 0;
+    max-width: 600px;
+}
+
+.recept h3 {
+    margin: 20px 0 15px 20px;
+    font-size: 20px;
+}
+
+.pizza-ingredienten h3 {
+    font-size: 20px;
+}
+
+.tussentitel {
+    list-style: none;
+    margin-left: -20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.gewicht {
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+#ingredienten ul {
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+.recept ol li {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.recept ol li strong {
+    margin-bottom: 6px;
+    font-size: 17px;
+}
+
+.recept ol li::marker {
+    font-weight: bold;
+}
+
+#pizza-afbeelding img {
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+#pizza-afbeelding img:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-wis {
+    background: var(--primary);
+    color: white;
+    font-weight: normal;
+    display: none;
+}
+
+.btn-wis:hover {
+    background: var(--primary-dark);
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.3s ease;
+}
+
+#foutmelding {
+    display: none;
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.recept-boodschap {
+    margin-left: 40px;
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 14px;
+    color: #555;
 }
 
 /* ------------------------------
