@@ -15,10 +15,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Dynamische <title>
     document.title = `PizzaHub | ${paginaTitel}`;
-
-    // Dynamische <h1>
-    const h1 = document.getElementById("page-title");
-    if (h1) {
-        h1.textContent = paginaTitel;
-    }
 });
